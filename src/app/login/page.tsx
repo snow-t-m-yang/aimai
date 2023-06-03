@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "../components/ui/Button";
+import { Button } from "../../components/ui/Button";
 import { signIn } from "next-auth/react";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const page = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
