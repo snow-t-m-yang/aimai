@@ -6,7 +6,7 @@ const page = async () => {
 
   return (
     <>
-      <pre>{JSON.stringify(session)}</pre>;
+      <pre className="">{JSON.stringify(session)}</pre>;
     </>
   );
 };
