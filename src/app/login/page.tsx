@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "../../components/ui/Button";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { toast } from "react-hot-toast";
 
 const page = () => {
@@ -31,6 +31,7 @@ const page = () => {
           {isLoading ? null : "goolge"}
           Sign in
         </Button>
+        <button onClick={() => signOut()}>Sign out</button>
       </div>
     </>
   );
