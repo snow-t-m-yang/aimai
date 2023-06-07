@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import SignOutButton from "@/components/SignOutButton";
+import FriendRequestsSidebarOption from "@/components/FriendRequestsSidebarOption";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -36,6 +37,7 @@ const layout = async ({ children }: LayoutProps) => {
         <Link href="/dashboard">📜</Link>
         <div>Your chat</div>
 
+        {/* chat session */}
         <nav className="flex flex-col flex-1">
           <ul role="list">
             <li>chats</li>
@@ -51,6 +53,10 @@ const layout = async ({ children }: LayoutProps) => {
                   </li>
                 ))}
               </ul>
+            </li>
+
+            <li>
+              <FriendRequestsSidebarOption />
             </li>
 
             {/* user info */}
