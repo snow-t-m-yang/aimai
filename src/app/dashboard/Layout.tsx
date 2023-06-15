@@ -5,6 +5,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import SignOutButton from "@/components/SignOutButton";
 import FriendRequestsSidebarOption from "@/components/FriendRequestsSidebarOption";
+import { fetchRedis } from "@/helpers/redis";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -29,6 +30,13 @@ const sidebarOptions: SidebarOptions[] = [
 const layout = async ({ children }: LayoutProps) => {
   const session = await getServerSession(authOptions);
   if (!session) notFound();
+
+  const unSeenRequestCount = (
+    (await fetchRedis(
+      "smembers",
+      `user:${session.user.id}:incoming_friend_requests`,
+    )) as User[]
+  ).length;
 
   return (
     <div className="grid grid-cols-3">
@@ -56,7 +64,10 @@ const layout = async ({ children }: LayoutProps) => {
             </li>
 
             <li>
-              <FriendRequestsSidebarOption />
+              <FriendRequestsSidebarOption
+                sessionId={session.user.id}
+                initialUnseenRequestCount={unSeenRequestCount}
+              />
             </li>
 
             {/* user info */}
