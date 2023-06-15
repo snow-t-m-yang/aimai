@@ -14,7 +14,7 @@ const page = async () => {
 
   const incomingSenderIds = (await fetchRedis(
     "smembers",
-    `user:${session.user.id}:incoming_friend_requests`,
+    `user${session.user.id}:incoming_friend_requests`,
   )) as string[];
 
   const incomingFriendRequests = await Promise.all(

@@ -23,11 +23,11 @@ const FriendRequests = ({
       ) : (
         friendRequests.map((request) => (
           <div key={request.senderId} className="flex items-center gap-4">
-            <UserPlus className="text-black" />
+            <UserPlus className="" />
             <p className="text-lg font-medium">{request.senderEmail}</p>
             <button
               aria-label="accept friend"
-              className="grid w-8 h-8 transition bg-pink-300 hover:bg-pink-700 place-items-center rounder-full hover:shadow-md"
+              className="grid w-8 h-8 transition bg-pink-600 rounded-full hover:bg-pink-500 place-items-center hover:shadow-md"
             >
               <Check className="w-3/4 font-semibold text-white h-3/4" />
             </button>
