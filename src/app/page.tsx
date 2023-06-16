@@ -1,7 +1,12 @@
-import { Ghost } from "lucide-react";
-import { db } from "../lib/db";
+import Link from "next/link";
 import { Button } from "../components/ui/Button";
 
 export default async function Home() {
-  return <Button variant="ghost">Hi</Button>;
+  return (
+    <div className="min-h-[100dvh] grid place-items-center">
+      <Link href="/login">
+        <Button aria-label="login">Login</Button>
+      </Link>
+    </div>
+  );
 }

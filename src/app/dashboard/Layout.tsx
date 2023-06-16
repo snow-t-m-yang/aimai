@@ -1,3 +1,4 @@
+import { Icon, Icons } from "@/components/Icons";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -12,10 +13,16 @@ type LayoutProps = {
 };
 
 type SidebarOptions = {
+  [x: string]: any;
   id: number;
   name: string;
   href: string;
-  icon: string;
+  Icon: string;
+};
+
+export const metadata = {
+  title: "FriendZone | Dashboard",
+  description: "Your dashboard",
 };
 
 const sidebarOptions: SidebarOptions[] = [
@@ -23,7 +30,7 @@ const sidebarOptions: SidebarOptions[] = [
     id: 1,
     name: "Add friend",
     href: "/dashboard/add",
-    icon: "✨",
+    Icon: "UserPlus",
   },
 ];
 
@@ -39,27 +46,38 @@ const layout = async ({ children }: LayoutProps) => {
   ).length;
 
   return (
-    <div className="grid grid-cols-3">
+    <div className="flex w-full h-screen">
       {/* sidebar */}
-      <div>
-        <Link href="/dashboard">📜</Link>
-        <div>Your chat</div>
+      <div className="flex-col w-full h-full max-w-xs px-6 overflow-y-auto border-r border-gray-200 md:flex grow gap-y-5">
+        <Link href="/dashboard" className="flex items-center h-16 shrink-0">
+          <Icons.Logo className="w-auto h-8 text-pink-600" />
+        </Link>
+        <div className="text-gray-400">Your chat</div>
 
         {/* chat session */}
         <nav className="flex flex-col flex-1">
-          <ul role="list">
+          <ul role="list" className="flex flex-col flex-1 gap-y-7">
             <li>chats</li>
             <li>
-              <div>Overview</div>
-              <ul role="list">
-                {sidebarOptions.map((option) => (
-                  <li key={option.id}>
-                    <Link href={option.href}>
-                      <span>{option.icon}</span>
-                      <span>{option.name}</span>
-                    </Link>
-                  </li>
-                ))}
+              <div className="text-gray-400">Overview</div>
+              <ul role="list" className="mt-2 -mx-2 space-y-1">
+                {sidebarOptions.map((option) => {
+                  // @ts-ignore
+                  const Icon = Icons[option.Icon];
+                  return (
+                    <li key={option.id}>
+                      <Link
+                        href={option.href}
+                        className="flex gap-3 p-2 text-sm font-semibold leading-6 text-gray-400 rounded-md hover:text-pink-600 group"
+                      >
+                        <span className="text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white">
+                          <Icon className="w-4 h-4" />
+                        </span>
+                        <span>{option.name}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </li>
 
@@ -71,9 +89,9 @@ const layout = async ({ children }: LayoutProps) => {
             </li>
 
             {/* user info */}
-            <li className="">
-              <div>
-                <div className="relative">
+            <li className="flex items-center mt-auto -mx-6">
+              <div className="flex items-center flex-1 px-6 py-3 text-sm font-semibold leading-6 gap-x-4">
+                <div className="relative w-8 h-8 ">
                   <Image
                     referrerPolicy="no-referrer"
                     className="rounded-full"

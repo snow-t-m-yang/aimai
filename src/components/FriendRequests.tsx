@@ -1,6 +1,8 @@
 "use client";
 
-import { Check, UserPlus } from "lucide-react";
+import axios from "axios";
+import { Check, UserPlus, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface FriendRequestsProps {
@@ -12,9 +14,31 @@ const FriendRequests = ({
   incomingFriendRequests,
   sessionId,
 }: FriendRequestsProps) => {
+  const router = useRouter();
   const [friendRequests, setfriendRequests] = useState<IncomingFriendRequest[]>(
     incomingFriendRequests,
   );
+
+  const acceptFriendRequest = async (senderId: string) => {
+    await axios.post("api/requests/accept", { id: senderId });
+
+    // filtering accepted ids out
+    setfriendRequests((prev) =>
+      prev.filter((request) => request.senderId !== senderId),
+    );
+
+    router.refresh();
+  };
+
+  const denyFriendRequest = async (senderId: string) => {
+    await axios.post("api/requests/deny", { id: senderId });
+
+    setfriendRequests((prev) =>
+      prev.filter((request) => request.senderId !== senderId),
+    );
+
+    router.refresh();
+  };
 
   return (
     <>
@@ -22,7 +46,10 @@ const FriendRequests = ({
         <p className="text-sm text-pink-300">Nothing to show here...</p>
       ) : (
         friendRequests.map((request) => (
-          <div key={request.senderId} className="flex items-center gap-4">
+          <div
+            key={request.senderId}
+            className="flex items-center gap-4"
+          >
             <UserPlus className="" />
             <p className="text-lg font-medium">{request.senderEmail}</p>
             <button
@@ -31,7 +58,12 @@ const FriendRequests = ({
             >
               <Check className="w-3/4 font-semibold text-white h-3/4" />
             </button>
-            <button></button>
+            <button
+              aria-label="deny friend"
+              className="grid w-8 h-8 transition bg-gray-200 rounded-full hover:bg-gray-500 place-items-center hover:shadow-md"
+            >
+              <X className="w-3/4 font-semibold text-black h-3/4" />
+            </button>
           </div>
         ))
       )}
