@@ -6,11 +6,10 @@ import { z } from "zod";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    console.log(body);
+
     const { id: idToAdd } = z.object({ id: z.string() }).parse(body);
 
     const session = await getServerSession(authOptions);
-    console.log(session);
 
     if (!session) {
       return new Response("Unauthorized", { status: 401 });
@@ -22,6 +21,8 @@ export async function POST(req: Request) {
       `user:${session.user.id}:friends`,
       idToAdd,
     );
+
+    console.log(isAlreadyFriends);
 
     if (isAlreadyFriends) {
       return new Response("Already friends", { status: 400 });
