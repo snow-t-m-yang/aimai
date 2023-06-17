@@ -22,18 +22,17 @@ export async function POST(req: Request) {
       idToAdd,
     );
 
-    console.log(isAlreadyFriends);
-
     if (isAlreadyFriends) {
       return new Response("Already friends", { status: 400 });
     }
 
     const hasFriendRequest = await fetchRedis(
       "sismember",
-      `user:${session.user.id}:incoming_friends_requests`,
+      `user:${session.user.id}:incoming_friend_requests`,
+      idToAdd,
     );
 
-    return new Response("ok");
+    return new Response("Ok");
   } catch (error) {
     console.log(error);
   }
