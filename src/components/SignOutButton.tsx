@@ -11,6 +11,7 @@ const SignOutButton = () => {
   return (
     <>
       <Button
+        className="dark"
         onClick={async () => {
           setIsSignOut(true);
           try {

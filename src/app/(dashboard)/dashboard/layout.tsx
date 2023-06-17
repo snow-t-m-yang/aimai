@@ -21,7 +21,7 @@ type SidebarOptions = {
 };
 
 export const metadata = {
-  title: "FriendZone | Dashboard",
+  title: "Aimai - Dashboard",
   description: "Your dashboard",
 };
 
@@ -49,18 +49,27 @@ const layout = async ({ children }: LayoutProps) => {
     <div className="flex w-full h-screen">
       {/* sidebar */}
       <div className="flex-col w-full h-full max-w-xs px-6 overflow-y-auto border-r border-gray-200 md:flex grow gap-y-5">
-        <Link href="/dashboard" className="flex items-center h-16 shrink-0">
+        <Link
+          href="/dashboard"
+          className="flex items-center h-16 shrink-0"
+        >
           <Icons.Logo className="w-auto h-8 text-pink-600" />
         </Link>
         <div className="text-gray-400">Your chat</div>
 
         {/* chat session */}
         <nav className="flex flex-col flex-1">
-          <ul role="list" className="flex flex-col flex-1 gap-y-7">
+          <ul
+            role="list"
+            className="flex flex-col flex-1 gap-y-7"
+          >
             <li>chats</li>
             <li>
               <div className="text-gray-400">Overview</div>
-              <ul role="list" className="mt-2 -mx-2 space-y-1">
+              <ul
+                role="list"
+                className="mt-2 -mx-2 space-y-1"
+              >
                 {sidebarOptions.map((option) => {
                   // @ts-ignore
                   const Icon = Icons[option.Icon];
@@ -96,6 +105,7 @@ const layout = async ({ children }: LayoutProps) => {
                     referrerPolicy="no-referrer"
                     className="rounded-full"
                     fill
+                    sizes="8px"
                     src={session.user.image || ""}
                     alt={`${session.user.name || ""} image`}
                   />
