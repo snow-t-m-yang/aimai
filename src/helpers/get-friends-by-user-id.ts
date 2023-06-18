@@ -13,4 +13,6 @@ export const getFriendsByUserId = async (userId: string) => {
       return friend;
     }),
   );
+
+  return friends;
 };
