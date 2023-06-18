@@ -3,10 +3,9 @@ import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
-import {
-  Message,
-  messageArrayValidator,
-} from "../../../../../lib/validations/message";
+import { Message, messageArrayValidator } from "@/lib/validations/message";
+import Image from "next/image";
+import Messages from "@/components/Messages";
 
 type PageProps = {
   params: { chatId: string };
@@ -51,6 +50,36 @@ const page = async ({ params }: PageProps) => {
   const chatPartner = (await db.get(`user:${chatPartnerId}`)) as User;
   const initialMessages = await getChatMessages(chatId);
 
-  return <div>{params.chatId}</div>;
+  return (
+    <div className="flex-1 justify-between flex flex-col h-full max-h-[calc(100vh-6rem)]">
+      <div className="flex justify-between py-3 border-b-2 border-gray-200 sm:items-center">
+        <div className="relative flex items-center space-x-4">
+          <div className="relative">
+            <div className="relative w-8 h-8 sm:w-12 sm:h-12">
+              <Image
+                fill
+                referrerPolicy="no-referrer"
+                src={chatPartner.image}
+                alt={`${chatPartner.name} profile picture`}
+                className="rounded-full"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col leading-tight">
+            <div className="flex items-center text-xl">
+              <span className="mr-3 font-semibold text-gray-300">
+                {chatPartner.name}
+              </span>
+            </div>
+
+            <span className="text-sm text-gray-400">{chatPartner.email}</span>
+          </div>
+        </div>
+      </div>
+
+      <Messages />
+    </div>
+  );
 };
 export default page;
