@@ -37,6 +37,9 @@ dependencies:
   clsx:
     specifier: ^1.2.1
     version: 1.2.1
+  date-fns:
+    specifier: ^2.30.0
+    version: 2.30.0
   eslint:
     specifier: 8.38.0
     version: 8.38.0
@@ -46,6 +49,9 @@ dependencies:
   lucide-react:
     specifier: ^0.233.0
     version: 0.233.0(react@18.2.0)
+  nanoid:
+    specifier: ^4.0.2
+    version: 4.0.2
   next:
     specifier: ^13.2.4
     version: 13.2.4(react-dom@18.2.0)(react@18.2.0)
@@ -852,6 +858,13 @@ packages:
 
   /damerau-levenshtein@1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
+    dev: false
+
+  /date-fns@2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
+    dependencies:
+      '@babel/runtime': 7.22.5
     dev: false
 
   /debug@3.2.7:
@@ -2045,6 +2058,12 @@ packages:
   /nanoid@3.3.6:
     resolution: {integrity: sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+    dev: false
+
+  /nanoid@4.0.2:
+    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
+    engines: {node: ^14 || ^16 || >=18}
     hasBin: true
     dev: false
 
