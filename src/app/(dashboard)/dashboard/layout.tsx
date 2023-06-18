@@ -8,17 +8,17 @@ import SignOutButton from "@/components/SignOutButton";
 import FriendRequestsSidebarOption from "@/components/FriendRequestsSidebarOption";
 import { fetchRedis } from "@/helpers/redis";
 
-type LayoutProps = {
+interface LayoutProps {
   children: React.ReactNode;
-};
+}
 
-type SidebarOptions = {
+interface SidebarOptions {
   [x: string]: any;
   id: number;
   name: string;
   href: string;
   Icon: string;
-};
+}
 
 export const metadata = {
   title: "Aimai - Dashboard",
