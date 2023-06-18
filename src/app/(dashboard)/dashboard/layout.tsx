@@ -73,7 +73,10 @@ const layout = async ({ children }: LayoutProps) => {
             className="flex flex-col flex-1 gap-y-7"
           >
             <li>
-              <SidebarChatList friends={friends} />
+              <SidebarChatList
+                friends={friends}
+                sessionId={session.user.id}
+              />
             </li>
             <li>
               <div className="text-gray-400">Overview</div>
