@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { chatHrefConstructor } from "@/lib/utils";
-import { spawn } from "child_process";
 
 interface SidebarChatListProps {
   friends: User[];
@@ -38,7 +37,7 @@ const SidebarChatList = ({ friends, sessionId }: SidebarChatListProps) => {
         return (
           <li key={friend.id}>
             <a
-              className="flex items-center justify-center p-2 text-sm font-semibold leading-6 rounded-md text-grey-700 hover:text-pink-600 hover:bg-grey-50 group gap-x-3"
+              className="flex items-center p-2 text-xl font-semibold leading-6 rounded-md hover:text-pink-600 hover:bg-grey-50 group gap-x-3"
               href={`/dashboard/chat/${chatHrefConstructor(
                 sessionId,
                 friend.id,
