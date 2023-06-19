@@ -17,6 +17,7 @@ const ChatInput = ({ chatPartner, chatId }: ChatInputProps) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const sendMessage = async () => {
+    if (!input) return;
     setIsloading(true);
 
     try {
@@ -59,11 +60,17 @@ const ChatInput = ({ chatPartner, chatId }: ChatInputProps) => {
         <div className="absolute bottom-0 right-0 flex justify-between py-2 pl-3 pr-2">
           <div className="flex-shrin-0 dark">
             <Button
-              isLoading={isLoading}
               onClick={sendMessage}
               type="submit"
             >
-              {isLoading ? <Loader2 color="#db2778" /> : "post"}
+              {isLoading ? (
+                <Loader2
+                  color="#db2778"
+                  className=" animate-spin"
+                />
+              ) : (
+                "post"
+              )}
             </Button>
           </div>
         </div>
