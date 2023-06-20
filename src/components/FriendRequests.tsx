@@ -41,7 +41,7 @@ const FriendRequests = ({
       );
       pusherClient.unbind("incoming_friend_request", friendRequestHandler);
     };
-  }, []);
+  }, [sessionId]);
 
   const acceptFriendRequest = async (senderId: string) => {
     await axios.post("/api/friends/accept", { id: senderId });

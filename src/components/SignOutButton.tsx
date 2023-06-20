@@ -22,7 +22,10 @@ const SignOutButton = () => {
         }}
       >
         {isSignOut ? (
-          <Loader2 className="w-4 h-4 animate-spin" />
+          <Loader2
+            color="#db2778"
+            className=" animate-spin"
+          />
         ) : (
           <LogOut className="w-4 h-4" />
         )}

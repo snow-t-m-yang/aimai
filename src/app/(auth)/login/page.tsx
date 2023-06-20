@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Button } from "../../../components/ui/Button";
 import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 
-const page = () => {
+const Page = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function handleLogin() {
@@ -32,11 +33,15 @@ const page = () => {
           </div>
           <Button
             className="w-full max-w-sm mx-auto"
-            isLoading={isLoading}
             type="button"
             onClick={handleLogin}
           >
-            {isLoading ? null : (
+            {isLoading ? (
+              <Loader2
+                color="#db2778"
+                className=" animate-spin"
+              />
+            ) : (
               <svg
                 className="w-4 h-4 mr-2"
                 aria-hidden="true"
@@ -69,11 +74,11 @@ const page = () => {
                 />
               </svg>
             )}
-            Google
+            {isLoading ? null : "Google"}
           </Button>
         </div>
       </div>
     </>
   );
 };
-export default page;
+export default Page;
