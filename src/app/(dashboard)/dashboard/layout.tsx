@@ -9,17 +9,11 @@ import FriendRequestsSidebarOption from "@/components/FriendRequestsSidebarOptio
 import { fetchRedis } from "@/helpers/redis";
 import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
 import SidebarChatList from "@/components/SidebarChatList";
+import MobileChatLayout from "@/components/MobileChatLayout";
+import { SidebarOptions } from "@/types/ui";
 
 interface LayoutProps {
   children: React.ReactNode;
-}
-
-interface SidebarOptions {
-  [x: string]: any;
-  id: number;
-  name: string;
-  href: string;
-  Icon: string;
 }
 
 export const metadata = {
@@ -51,8 +45,18 @@ const layout = async ({ children }: LayoutProps) => {
 
   return (
     <div className="flex w-full h-screen">
+      {/* Mobile */}
+      <div className="md:hidden">
+        <MobileChatLayout
+          friends={friends}
+          session={session}
+          sidebarOptions={sidebarOptions}
+          unseenRequestCount={unSeenRequestCount}
+        />
+      </div>
+
       {/* sidebar */}
-      <div className="flex-col w-full h-full max-w-xs px-6 overflow-y-auto border-r border-gray-200 md:flex grow gap-y-5">
+      <div className="flex-col hidden w-full h-full max-w-xs px-6 overflow-y-auto border-r border-gray-200 md:flex grow gap-y-5">
         <Link
           href="/dashboard"
           className="flex items-center h-16 shrink-0"
