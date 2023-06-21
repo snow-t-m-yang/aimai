@@ -5,6 +5,7 @@ import { Button } from "../../../components/ui/Button";
 import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import { Loader2 } from "lucide-react";
+import { Icons } from "@/components/Icons";
 
 const Page = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -26,7 +27,7 @@ const Page = () => {
       <div className="flex items-center justify-center min-h-full px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center w-full max-w-md space-y-8">
           <div className="flex flex-col items-center gap-8">
-            logo
+            <Icons.Logo />
             <h2 className="mt-6 text-3xl font-bold tracking-tight text-center ">
               Sign in
             </h2>
