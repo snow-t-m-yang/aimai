@@ -14,6 +14,8 @@ interface ChatInputProps {
 const ChatInput = ({ chatPartner, chatId }: ChatInputProps) => {
   const [input, setInput] = useState<string>("");
   const [isLoading, setIsloading] = useState<boolean>(false);
+  const [isReachSeven, setisReachSeven] = useState<boolean>(false);
+  const [wordCount, setWordCount] = useState<number>(0);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const sendMessage = async () => {
@@ -30,11 +32,26 @@ const ChatInput = ({ chatPartner, chatId }: ChatInputProps) => {
       setIsloading(false);
     }
   };
+
+  const handleOnChange = (inputStr: string) => {
+    const words = inputStr.match(/[\w'-]+|[^\w\s]+/g);
+
+    const wordCount = words ? words.length : 0;
+    if (wordCount <= 7) {
+      setWordCount(wordCount);
+      setInput(inputStr);
+    }
+  };
+
+  const leftWordCount = 7 - wordCount;
+  const isOneWordLeft = leftWordCount === 1 ? true : false;
+  const isZeroWordLeft = leftWordCount === 0 ? true : false;
+
   return (
     <div className="px-4 pt-4 mb-2 border-t border-gray-200 sm:mb-0">
       <div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-pink-600">
         <TextareaAutosize
-          className="block w-full text-white resize-none placeholder:text-pink-200 focus:ring-0 sm:py-1.5 sm:text-sm sm:leading-6 bg-transparent"
+          className="block w-ful border-none text-white resize-none placeholder:text-pink-200 focus:ring-0 sm:py-1.5 sm:text-sm sm:leading-6 bg-transparent"
           ref={textareaRef}
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
@@ -44,7 +61,7 @@ const ChatInput = ({ chatPartner, chatId }: ChatInputProps) => {
           }}
           rows={1}
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => handleOnChange(e.target.value)}
           placeholder={`Aimai with ${chatPartner.name} now`}
         />
 
@@ -54,7 +71,18 @@ const ChatInput = ({ chatPartner, chatId }: ChatInputProps) => {
           aria-hidden="true"
         >
           <div className="py-px">
-            <div className="h-9"></div>
+            <div className="h-3"></div>
+            {isZeroWordLeft ? (
+              <span className="text-red-500">0 word left</span>
+            ) : isOneWordLeft ? (
+              <span>
+                <span>{`${leftWordCount} word left`}</span>
+              </span>
+            ) : (
+              <span>
+                <span>{`${leftWordCount} words left`}</span>
+              </span>
+            )}
           </div>
         </div>
         <div className="absolute bottom-0 right-0 flex justify-between py-2 pl-3 pr-2">
