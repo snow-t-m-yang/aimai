@@ -6,8 +6,8 @@ export default withAuth(
   async function middleware(req) {
     const pathname = req.nextUrl.pathname;
 
-    // mange route protection
-    const isAuth = await getToken({ req });
+    // manage route protection
+    const token = await getToken({ req });
     const isLoginPage = pathname.startsWith("/login");
 
     const sensitiveRoutes = ["/dashboard"];
@@ -16,14 +16,14 @@ export default withAuth(
     );
 
     if (isLoginPage) {
-      if (isAuth) {
+      if (token) {
         return NextResponse.redirect(new URL("/dashboard", req.url));
       }
 
       return NextResponse.next();
     }
 
-    if (!isAuth && isAccessingSensitiveRoute) {
+    if (!token && isAccessingSensitiveRoute) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
 

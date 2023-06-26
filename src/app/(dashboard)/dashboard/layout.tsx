@@ -32,6 +32,7 @@ const sidebarOptions: SidebarOptions[] = [
 
 const layout = async ({ children }: LayoutProps) => {
   const session = await getServerSession(authOptions);
+  console.log(session?.user.name);
   if (!session) notFound();
 
   const friends = await getFriendsByUserId(session.user.id);

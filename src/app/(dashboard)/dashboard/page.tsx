@@ -10,6 +10,7 @@ import Image from "next/image";
 
 const page = async () => {
   const session = await getServerSession(authOptions);
+
   if (!session) {
     notFound();
   }
