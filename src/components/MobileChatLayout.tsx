@@ -42,7 +42,7 @@ const MobileChatLayout = ({
           href="/dashboard"
           className={buttonVariants({ variant: "ghost" })}
         >
-          <Icons.Logo className="w-auto h-6 text-pink-600" />
+          <Icons.Logo className="w-10 h-10 text-pink-600" />
         </Link>
 
         <Button

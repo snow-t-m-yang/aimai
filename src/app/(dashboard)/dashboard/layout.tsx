@@ -1,4 +1,4 @@
-import { Icon, Icons } from "@/components/Icons";
+import { Icons } from "@/components/Icons";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -24,7 +24,6 @@ export const metadata = {
 const sidebarOptions: SidebarOptions[] = [
   {
     id: 1,
-    name: "Add friend",
     href: "/dashboard/add",
     Icon: "UserPlus",
   },
@@ -32,7 +31,6 @@ const sidebarOptions: SidebarOptions[] = [
 
 const layout = async ({ children }: LayoutProps) => {
   const session = await getServerSession(authOptions);
-  console.log(session?.user.name);
   if (!session) notFound();
 
   const friends = await getFriendsByUserId(session.user.id);
@@ -45,37 +43,39 @@ const layout = async ({ children }: LayoutProps) => {
   ).length;
 
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex relative w-full min-h-[100dvh]">
       {/* Mobile */}
-      <div className="md:hidden">
+      {/* <div className="md:hidden">
         <MobileChatLayout
           friends={friends}
           session={session}
           sidebarOptions={sidebarOptions}
           unseenRequestCount={unSeenRequestCount}
         />
-      </div>
+      </div> */}
 
       {/* sidebar */}
-      <div className="flex-col hidden w-full h-full max-w-xs px-6 overflow-y-auto border-r border-gray-200 md:flex grow gap-y-5">
-        <Link
-          href="/dashboard"
-          className="flex items-center h-16 shrink-0"
-        >
-          <Icons.Logo className="w-auto h-8 text-pink-600" />
-        </Link>
 
+      {/* <Link
+          href="/dashboard"
+          className="absolute top-0 left-0"
+        >
+          <Icons.Logo
+            width={50}
+            height={50}
+          />
+        </Link> */}
+
+      <nav className="absolute bottom-0 flex border">
         {friends.length > 0 && (
-          <div className="text-xs font-semibold leading-6 text-gray-400">
-            Your chats
-          </div>
+          <div className="text-xs font-semibold leading-6 text-gray-400"></div>
         )}
 
         {/* chat session */}
-        <nav className="flex flex-col flex-1">
+        <div className="flex">
           <ul
             role="list"
-            className="flex flex-col flex-1 gap-y-7"
+            className="flex flex-1 gap-y-7"
           >
             <li>
               <SidebarChatList
@@ -84,39 +84,32 @@ const layout = async ({ children }: LayoutProps) => {
               />
             </li>
             <li>
-              <div className="text-gray-400">Overview</div>
-              <ul
-                role="list"
-                className="mt-2 -mx-2 space-y-1"
-              >
-                {sidebarOptions.map((option) => {
-                  // @ts-ignore
-                  const Icon = Icons[option.Icon];
-                  return (
-                    <li key={option.id}>
-                      <Link
-                        href={option.href}
-                        className="flex gap-3 p-2 text-sm font-semibold leading-6 text-gray-400 rounded-md hover:text-pink-600 group"
-                      >
-                        <span className="text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white">
-                          <Icon className="w-4 h-4" />
-                        </span>
-                        <span>{option.name}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-                <li>
-                  <FriendRequestsSidebarOption
-                    sessionId={session.user.id}
-                    initialUnseenRequestCount={unSeenRequestCount}
-                  />
-                </li>
-              </ul>
+              {sidebarOptions.map((option) => {
+                // @ts-ignore
+                const Icon = Icons[option.Icon];
+                return (
+                  <li key={option.id}>
+                    <Link
+                      href={option.href}
+                      className="flex gap-3 p-2 text-sm font-semibold leading-6 text-gray-400 rounded-md hover:text-pink-600 group"
+                    >
+                      <span className="text-gray-400 border-gray-200 group-hover:border-pink-600 group-hover:text-pink-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white">
+                        <Icon className="w-4 h-4" />
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </li>
+            <li>
+              <FriendRequestsSidebarOption
+                sessionId={session.user.id}
+                initialUnseenRequestCount={unSeenRequestCount}
+              />
             </li>
 
             {/* user info */}
-            <li className="flex items-center mt-auto -mx-6">
+            {/* <li className="flex items-center mt-auto -mx-6">
               <div className="flex items-center flex-1 px-6 py-3 text-sm font-semibold leading-6 gap-x-4">
                 <div className="relative w-8 h-8 ">
                   <Image
@@ -135,13 +128,13 @@ const layout = async ({ children }: LayoutProps) => {
                 </div>
               </div>
               <SignOutButton />
-            </li>
+            </li> */}
           </ul>
-        </nav>
-      </div>
-      <aside className="container w-full max-h-screen py-16 md:py-12">
+        </div>
+      </nav>
+      <main className="container w-full max-h-screen py-16 md:py-12">
         {children}
-      </aside>
+      </main>
     </div>
   );
 };

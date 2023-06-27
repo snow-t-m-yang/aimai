@@ -56,7 +56,6 @@ const FriendRequestsSidebarOption = ({
       <div className="text-gray-400 border-grey-200 group-hover:border-pink-500 group-hover:text-pink-500 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white">
         <User className="w-4 h-4" />
       </div>
-      <p className="truncate">Friend requests</p>
 
       {unseenRequestCount > 0 && (
         <div className="flex items-center justify-center w-5 h-5 text-xs text-white bg-pink-600 rounded-full">
