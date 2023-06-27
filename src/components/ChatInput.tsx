@@ -14,7 +14,6 @@ interface ChatInputProps {
 const ChatInput = ({ chatPartner, chatId }: ChatInputProps) => {
   const [input, setInput] = useState<string>("");
   const [isLoading, setIsloading] = useState<boolean>(false);
-  const [isReachSeven, setisReachSeven] = useState<boolean>(false);
   const [wordCount, setWordCount] = useState<number>(0);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
