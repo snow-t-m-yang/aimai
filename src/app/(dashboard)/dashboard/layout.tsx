@@ -35,11 +35,9 @@ const sidebarOptions: SidebarOptions[] = [
 const layout = async ({ children }: LayoutProps) => {
   const headersList = headers();
   const prevUrl = headersList.get("referer") || "";
-
-  console.log(prevUrl.length);
+  console.log(prevUrl);
   const isNotChatPage =
     prevUrl.includes("chat") || prevUrl.length === 0 ? true : false;
-  console.log(isNotChatPage);
 
   const session = await getServerSession(authOptions);
   if (!session) notFound();
