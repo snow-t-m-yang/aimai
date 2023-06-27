@@ -2,11 +2,14 @@ import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
 import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
 import { chatHrefConstructor } from "@/lib/utils";
-import { ChevronRight } from "lucide-react";
+import { ArrowLeft, ChevronRight, UserPlus } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import FriendRequestsSidebarOption from "@/components/FriendRequestsSidebarOption";
+import SidebarChatList from "@/components/SidebarChatList";
+import SignOutButton from "@/components/SignOutButton";
 
 const page = async () => {
   const session = await getServerSession(authOptions);
@@ -35,8 +38,15 @@ const page = async () => {
     }),
   );
 
+  const unSeenRequestCount = (
+    (await fetchRedis(
+      "smembers",
+      `user:${session.user.id}:incoming_friend_requests`,
+    )) as User[]
+  ).length;
+
   return (
-    <div className="container py-12">
+    <div className="min-h-[100dvh] w-full relative">
       <h1 className="mb-8 text-3xl font-bold">Recent Aimaier</h1>
       {friendsWithLastMessage.length === 0 ? (
         <p className="text-sm text-zinc-500">You have 0 Aimaier</p>
@@ -49,7 +59,7 @@ const page = async () => {
             <div className="absolute inset-y-0 flex top-3 right-4 item-center">
               <ChevronRight className="h-7 w-7 text-zinc-200" />
             </div>
-            <Link
+            <a
               href={`/dashboard/chat/${chatHrefConstructor(
                 session.user.id,
                 friend.id,
@@ -79,7 +89,7 @@ const page = async () => {
                   {friend.lastMessage.text}
                 </p>
               </div>
-            </Link>
+            </a>
           </div>
         ))
       )}

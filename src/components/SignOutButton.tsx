@@ -11,7 +11,8 @@ const SignOutButton = () => {
   return (
     <>
       <Button
-        className="dark"
+        className="text-white"
+        variant={"link"}
         onClick={async () => {
           setIsSignOut(true);
           try {
