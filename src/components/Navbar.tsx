@@ -1,6 +1,8 @@
 "use client";
 
-import { UserPlus } from "lucide-react";
+import { useState } from "react";
+
+import { MoreVertical, UserPlus } from "lucide-react";
 import { Session } from "next-auth";
 import Link from "next/link";
 import FriendRequestsSidebarOption from "./FriendRequestsSidebarOption";
@@ -15,13 +17,19 @@ interface NavbarProps {
 }
 
 const Navbar = ({ friends, session, unSeenRequestCount }: NavbarProps) => {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
   const pathname = usePathname();
-  console.log(pathname);
   const isChatPage = pathname?.includes("/chat");
+
   return (
     <>
-      {isChatPage ? null : (
-        <nav className="absolute bottom-0 flex w-full">
+      <MoreVertical
+        className="absolute z-10 -right-1 bottom-10"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      />
+      {isMenuOpen && (
+        <nav className="absolute bottom-0 flex w-full py-8 bg-black/10 backdrop-blur-3xl">
           <ul
             role="list"
             className="flex items-center justify-center flex-1 w-full gap-x-5"

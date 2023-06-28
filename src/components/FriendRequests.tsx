@@ -67,7 +67,9 @@ const FriendRequests = ({
   return (
     <>
       {friendRequests.length === 0 ? (
-        <p className="text-sm text-pink-300">Nothing to show here...</p>
+        <p className="text-sm text-pink-300">
+          You have 0 friend request, maybe check it later
+        </p>
       ) : (
         friendRequests.map((request) => (
           <div

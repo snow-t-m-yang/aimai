@@ -25,14 +25,6 @@ export const metadata = {
   description: "Your dashboard",
 };
 
-const sidebarOptions: SidebarOptions[] = [
-  {
-    id: 1,
-    href: "/dashboard/add",
-    Icon: "UserPlus",
-  },
-];
-
 const layout = async ({ children }: LayoutProps) => {
   const session = await getServerSession(authOptions);
   if (!session) notFound();
@@ -47,8 +39,8 @@ const layout = async ({ children }: LayoutProps) => {
   ).length;
 
   return (
-    <div className="flex relative w-full min-h-[100dvh]">
-      <main className="w-full">{children}</main>
+    <div className="relative min-h-[100dvh]">
+      <main className="">{children}</main>
       <Navbar
         session={session}
         unSeenRequestCount={unSeenRequestCount}
