@@ -14,6 +14,7 @@ import { SidebarOptions } from "@/types/ui";
 import { ArrowLeft, User, UserPlus } from "lucide-react";
 import { headers } from "next/headers";
 import { is } from "date-fns/locale";
+import Navbar from "@/components/Navbar";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -33,12 +34,6 @@ const sidebarOptions: SidebarOptions[] = [
 ];
 
 const layout = async ({ children }: LayoutProps) => {
-  const headersList = headers();
-  const prevUrl = headersList.get("referer") || "";
-  console.log(prevUrl);
-  const isNotChatPage =
-    prevUrl.includes("chat") || prevUrl.length === 0 ? true : false;
-
   const session = await getServerSession(authOptions);
   if (!session) notFound();
 
@@ -54,35 +49,11 @@ const layout = async ({ children }: LayoutProps) => {
   return (
     <div className="flex relative w-full min-h-[100dvh]">
       <main className="w-full">{children}</main>
-      {isNotChatPage ? (
-        <nav className="absolute bottom-0 flex w-full">
-          <ul
-            role="list"
-            className="flex items-center justify-center flex-1 w-full gap-x-5"
-          >
-            <li>
-              <SidebarChatList
-                friends={friends}
-                sessionId={session.user.id}
-              />
-            </li>
-            <li>
-              <Link href="/dashboard/add">
-                <UserPlus />
-              </Link>
-            </li>
-            <li>
-              <FriendRequestsSidebarOption
-                sessionId={session.user.id}
-                initialUnseenRequestCount={unSeenRequestCount}
-              />
-            </li>
-            <li>
-              <SignOutButton />
-            </li>
-          </ul>
-        </nav>
-      ) : null}
+      <Navbar
+        session={session}
+        unSeenRequestCount={unSeenRequestCount}
+        friends={friends}
+      />
     </div>
   );
 };
