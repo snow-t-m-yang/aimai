@@ -33,7 +33,9 @@ const ChatInput = ({ chatPartner, chatId }: ChatInputProps) => {
   };
 
   const handleOnChange = (inputStr: string) => {
-    const words = inputStr.match(/[\w'-]+|[^\w\s]+/g);
+    const zhToEn = inputStr.replace(/[^\x00-\xff]/g, " x");
+
+    const words = zhToEn.match(/[\w'-]+|[^\w\s]+/g);
 
     const wordCount = words ? words.length : 0;
     if (wordCount <= 7) {
@@ -47,11 +49,11 @@ const ChatInput = ({ chatPartner, chatId }: ChatInputProps) => {
   const isZeroWordLeft = leftWordCount === 0;
 
   return (
-    <div className="flex items-center px-4 py-3 border-t border-gray-200 gap-x-3 sm:mb-0">
+    <div className="flex items-center px-4 py-3 bg-zinc-300/20 gap-x-3 sm:mb-0">
       <div className="w-full pt-0 mt-0">
-        <div className="">
+        <div className="text-white/50">
           {isZeroWordLeft ? (
-            <span className="text-red-500">0 word left</span>
+            <span className="text-red-500/70">0 word left</span>
           ) : isOneWordLeft ? (
             <span>
               <span>{`${leftWordCount} word left`}</span>
@@ -64,12 +66,13 @@ const ChatInput = ({ chatPartner, chatId }: ChatInputProps) => {
         </div>
         <div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-pink-600">
           <TextareaAutosize
-            className="block w-full border-none text-white resize-none placeholder:text-pink-300 focus:ring-0 sm:py-1.5 sm:text-sm sm:leading-6 bg-transparent"
+            className="block w-full border-none text-white resize-none placeholder:text-pink-300/50 focus:ring-0 sm:py-1.5 sm:text-sm sm:leading-6 bg-transparent"
             ref={textareaRef}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
                 sendMessage();
+                setWordCount(0);
               }
             }}
             value={input}
@@ -87,7 +90,9 @@ const ChatInput = ({ chatPartner, chatId }: ChatInputProps) => {
       <Button
         onClick={sendMessage}
         type="submit"
-        className="px-2 rounded-3xl"
+        className={`${
+          isZeroWordLeft ? "drop-shadow-[0_0_13px_white]" : ""
+        } px-2 rounded-3xl`}
       >
         {isLoading ? (
           <Loader2

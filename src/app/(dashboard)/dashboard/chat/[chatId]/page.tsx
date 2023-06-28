@@ -59,35 +59,17 @@ const page = async ({ params }: PageProps) => {
   const initialMessages = await getChatMessages(chatId);
 
   return (
-    <div className="flex flex-col justify-between min-h-[100dvh] flex-1">
-      <div className="relative flex justify-between py-3 border-b-2 border-gray-200 sm:items-center">
-        <nav className="absolute top-0 flex justify-center w-full border">
-          {/* chat session */}
-          <div className="flex">
-            <ul
-              role="list"
-              className="flex items-center flex-1 gap-x-3"
-            >
-              <li>
-                <a href="/dashboard">
-                  <ArrowLeft color="#DB2777" />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-
-        <div className="relative flex items-center space-x-4">
-          <div className="relative">
-            <div className="relative w-8 h-8 sm:w-12 sm:h-12">
-              <Image
-                fill
-                referrerPolicy="no-referrer"
-                src={chatPartner.image}
-                alt={`${chatPartner.name} profile picture`}
-                className="rounded-full"
-              />
-            </div>
+    <div className="flex flex-col bg-transparent justify-between max-h-[100dvh] flex-1">
+      <div className="relative flex justify-between w-full py-3 bg-zinc-300/20 sm:items-center">
+        <div className="relative flex items-center space-x-4 ">
+          <div className="relative w-8 h-8 sm:w-12 sm:h-12">
+            <Image
+              fill
+              referrerPolicy="no-referrer"
+              src={chatPartner.image}
+              alt={`${chatPartner.name} profile picture`}
+              className="rounded-full"
+            />
           </div>
 
           <div className="flex flex-col leading-tight">

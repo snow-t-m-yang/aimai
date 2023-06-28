@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="dark max-w-sm w-full mx-auto min-h-[100dvh] bg-black">
+      <body className="dark max-w-md w-full mx-auto min-h-[100dvh]">
         <Providers>{children}</Providers>
       </body>
     </html>
