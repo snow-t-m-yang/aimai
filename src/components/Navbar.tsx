@@ -25,11 +25,11 @@ const Navbar = ({ friends, session, unSeenRequestCount }: NavbarProps) => {
   return (
     <>
       <MoreVertical
-        className="absolute z-10 -right-1 bottom-10"
+        className="absolute z-10 -right-1 bottom-[2rem]"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       />
       {isMenuOpen && (
-        <nav className="absolute bottom-0 flex w-full py-8 bg-black/10 backdrop-blur-3xl">
+        <nav className="absolute bottom-0 flex w-full py-8 bg-zinc-700/10 backdrop-blur-xl">
           <ul
             role="list"
             className="flex items-center justify-center flex-1 w-full gap-x-5"

@@ -78,7 +78,7 @@ const Messages = ({
                 <span
                   className={cn("px-4 py-2 rounded-lg inline-block", {
                     "bg-pink-600 text-white": isCurrentUser,
-                    "bg-gray-600 text-gray-200": !isCurrentUser,
+                    "bg-gray-600 text-white": !isCurrentUser,
                     "rounded-br-none":
                       !isNextMessageFromSameUser && isCurrentUser,
                     "rounded-bl-none":
@@ -86,9 +86,9 @@ const Messages = ({
                   })}
                 >
                   {msg.text}{" "}
-                  <span className="ml-2 text-xs text-gray-400">
-                    {formatTimestamp(msg.timestamp)}
-                  </span>
+                </span>
+                <span className="ml-2 text-xs text-gray-300/50">
+                  {formatTimestamp(msg.timestamp)}
                 </span>
               </div>
 
